@@ -9,30 +9,37 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import theme from './theme.js';
 import './style.scss';
 
+const rotten_potatoes_theme = createMuiTheme(theme);
+
 const App = () => (
-  <div className="app-wrapper">
+  <React.Fragment>
     <Helmet
-      titleTemplate="%s - React.js Boilerplate"
-      defaultTitle="React.js Boilerplate"
+      titleTemplate="%s - Rotten Potatoes"
+      defaultTitle="Rotten Potatoes"
     >
-      <meta name="description" content="A React.js Boilerplate application" />
+      <meta name="description" content="A simple website to save your favourite shows" />
     </Helmet>
-    <Header />
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/features" component={FeaturePage} />
-      <Route path="" component={NotFoundPage} />
-    </Switch>
-    <Footer />
-  </div>
+    <MuiThemeProvider theme={rotten_potatoes_theme}>
+      <Header />
+      <div className="app-wrapper">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/features" component={FeaturePage} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+        <Footer />
+      </div>
+    </MuiThemeProvider>
+  </React.Fragment>
 );
 
 export default App;
