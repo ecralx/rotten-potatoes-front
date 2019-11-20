@@ -7,59 +7,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
+//import ShowsList from 'components/ShowsList';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
-   * when initial state username is not null, submit the form to load repos
+   * Go fetch the shows
    */
   componentDidMount() {
-    const { username, onSubmitForm } = this.props;
-    if (username && username.trim().length > 0) {
-      onSubmitForm();
+    const { fetchShows, discoveryShows } = this.props;
+    
+    if (!discoveryShows) {
+      fetchShows();
     }
   }
 
   render() {
     const {
-      loading, error, repos, username, onChangeUsername, onSubmitForm
+      discoveryShows,
     } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos
-    };
+    const showsListProps = { ...discoveryShows };
 
     return (
       <article>
         <Helmet>
           <title>Home Page</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <meta name="description" content="Discover new tv shows" />
         </Helmet>
         <div className="home-page">
           <section className="centered">
-            <h2>Start your next react project in seconds</h2>
+            <h2>Welcome to Rotten Potatoes</h2>
             <p>
-              A minimal <i>React-Redux</i> boilerplate with all the best practices
+              A minimalistic website to never forget about your favourite <i>tv-shows</i>
             </p>
           </section>
           <section>
-            <h2>Try me!</h2>
-            <form onSubmit={onSubmitForm}>
-              <label htmlFor="username">
-                Show Github repositories by
-                <span className="at-prefix">@</span>
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="flexdinesh"
-                  value={username}
-                  onChange={onChangeUsername}
-                />
-              </label>
-            </form>
-            <ReposList {...reposListProps} />
+            <h2>Discovery</h2>
+            <p>Discover new tv-shows</p>
+            {/*<ShowsList {...showsListProps} />*/}
           </section>
         </div>
       </article>
@@ -70,8 +55,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func
+  discoveryShows: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  fetchShows: PropTypes.func,
 };

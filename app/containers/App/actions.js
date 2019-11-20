@@ -16,48 +16,47 @@
  */
 
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  LOAD_DISCOVERY_SHOWS,
+  LOAD_DISCOVERY_SHOWS_SUCCESS,
+  LOAD_DISCOVERY_SHOWS_ERROR,
 } from './constants';
 
 /**
- * Load the repositories, this action starts the request saga
+ * Load the discovery shows, this action starts the request saga
  *
- * @return {object} An action object with a type of LOAD_REPOS
+ * @return {object} An action object with a type of LOAD_DISCOVERY_SHOWS
  */
-export function loadRepos() {
+export function loadDiscoveryShows(page = 1) {
   return {
-    type: LOAD_REPOS,
+    type: LOAD_DISCOVERY_SHOWS,
+    page
   };
 }
 
 /**
- * Dispatched when the repositories are loaded by the request saga
+ * Dispatched when the discovery shows are loaded by the request saga
  *
- * @param  {array} repos The repository data
- * @param  {string} username The current username
+ * @param  {array} shows The discovery shows data
  *
- * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
+ * @return {object}      An action object with a type of LOAD_DISCOVERY_SHOWS_SUCCESS passing the discovery shows
  */
-export function reposLoaded(repos, username) {
+export function discoveryShowsLoaded(shows) {
   return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
-    username,
+    type: LOAD_DISCOVERY_SHOWS_SUCCESS,
+    shows,
   };
 }
 
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when loading the discovery shows fails
  *
  * @param  {object} error The error
  *
- * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
+ * @return {object}       An action object with a type of LOAD_DISCOVERY_SHOWS_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function discoveryShowsLoadingError(error) {
   return {
-    type: LOAD_REPOS_ERROR,
+    type: LOAD_DISCOVERY_SHOWS_ERROR,
     error,
   };
 }
