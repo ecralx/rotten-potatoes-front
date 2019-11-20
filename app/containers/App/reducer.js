@@ -23,8 +23,9 @@ function appReducer(state = initialState, action) {
         : {
           loading: true,
           results: [],
-          total_results: false,
-          page: action.page
+          totalResults: false,
+          page: action.page,
+          error: false
         };
 
       return newState;
@@ -33,15 +34,21 @@ function appReducer(state = initialState, action) {
       const newState = { ...state };
       newState.shows.discovery = {
         ...state.shows.discovery,
-          loading: false,
-          results: [...state.shows.discovery.results, ...action.shows.results],
-          total_results: action.shows.total_results
-        };
+        loading: false,
+        results: [...state.shows.discovery.results, ...action.shows.results],
+        totalResults: action.shows.total_results
+      };
       return newState;
     }
 
     case LOAD_DISCOVERY_SHOWS_ERROR: {
-      return { ...state, error: action.error, loading: false };
+      const newState = { ...state };
+      newState.shows.discovery = {
+        ...state.shows.discovery,
+        loading: false,
+        error: action.error
+      };
+      return newState;
     }
     default:
       return state;
