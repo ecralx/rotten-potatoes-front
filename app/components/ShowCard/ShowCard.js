@@ -65,9 +65,9 @@ export default function ShowCard({
 };
 
 ShowCard.propTypes = {
-    id: PropTypes.number,
-    name: PropTypes.string,
-    overview: PropTypes.string,
-    mediaPath: PropTypes.string,
-    voteAverage: PropTypes.number,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  overview: PropTypes.string,
+  mediaPath: PropTypes.string,
+  voteAverage: PropTypes.number,
 };
