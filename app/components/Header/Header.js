@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -19,11 +20,19 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
   },
+  titleText : {
+    "&:hover" : {
+      cursor: 'pointer',
+    },
+  },
   titleIcon: {
     flexGrow: 1,
     display: 'none',
     [theme.breakpoints.down('sm')]: {
       display: 'block',
+    },
+    "span &:hover" : {
+      cursor: 'pointer',
     },
   },
   search: {
@@ -68,16 +77,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SearchAppBar() {
+  const history = useHistory();
   const classes = useStyles();
+
+  const goToHome = () => {
+    history.push('/')
+  }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Rotten Potatoes
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+          >
+            <span className={classes.titleText} onClick={goToHome}>Rotten Potatoes</span>
           </Typography>
-          <HomeIcon className={classes.titleIcon}/>
+          <HomeIcon className={classes.titleIcon} onClick={goToHome}/>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
