@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -25,11 +26,15 @@ export default function ShowCard({
     mediaPath,
     voteAverage,
 }) {
+  let history = useHistory();
   const classes = useStyles();
+  const goToShow = () => {
+    history.push(`show/${id}`);
+  }
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea onClick={goToShow}>
         <CardMedia
           className={classes.media}
           image={mediaPath}

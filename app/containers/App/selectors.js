@@ -25,6 +25,16 @@ const makeSelectDiscoveryShows = () => createSelector(
   (globalState) => globalState.shows.discovery
 );
 
+const makeSelectDetailedShows = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.shows.detailed
+);
+
+const makeSelectShowDetails = (showId) => createSelector(
+  selectGlobal,
+  (globalState) => (globalState.shows.detailedShows || []).find(({ tmdb_id: id }) => Number(id) === Number(showId))
+)
+
 const makeSelectLocation = () => createSelector(
   selectRoute,
   (routeState) => routeState.location
@@ -36,5 +46,6 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectDiscoveryShows,
+  makeSelectShowDetails,
   makeSelectLocation,
 };

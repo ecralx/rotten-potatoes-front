@@ -19,6 +19,9 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  LOAD_SHOW_DETAILS,
+  LOAD_SHOW_DETAILS_SUCCESS,
+  LOAD_SHOW_DETAILS_ERROR
 } from './constants';
 
 /**
@@ -57,6 +60,29 @@ export function discoveryShowsLoaded(shows) {
 export function discoveryShowsLoadingError(error) {
   return {
     type: LOAD_DISCOVERY_SHOWS_ERROR,
+    error,
+  };
+}
+
+export function loadShowDetails(id) {
+  return {
+    type: LOAD_SHOW_DETAILS,
+    id
+  };
+}
+
+export function detailedShowLoaded(show) {
+  return {
+    type: LOAD_SHOW_DETAILS_SUCCESS,
+    id: show.tmdb_id,
+    show,
+  };
+}
+
+export function detailedShowLoadingError(id, error) {
+  return {
+    type: LOAD_SHOW_DETAILS_ERROR,
+    id,
     error,
   };
 }
