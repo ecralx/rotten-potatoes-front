@@ -18,5 +18,8 @@ export const LOAD_SHOW_DETAILS_ERROR = 'rotten-potatoes/App/LOAD_SHOW_DETAILS_ER
 export const LOAD_SIMILAR_SHOWS = 'rotten-potatoes/App/LOAD_SIMILAR_SHOWS';
 export const LOAD_SIMILAR_SHOWS_SUCCESS = 'rotten-potatoes/App/LOAD_SIMILAR_SHOWS_SUCCESS';
 export const LOAD_SIMILAR_SHOWS_ERROR = 'rotten-potatoes/App/LOAD_SIMILAR_SHOWS_ERROR';
+export const LOAD_SHOW_SEASON = 'rotten-potatoes/App/LOAD_SHOW_SEASON';
+export const LOAD_SHOW_SEASON_SUCCESS = 'rotten-potatoes/App/LOAD_SHOW_SEASON_SUCCESS';
+export const LOAD_SHOW_SEASON_ERROR = 'rotten-potatoes/App/LOAD_SHOW_SEASON_ERROR';
 
 export const DEFAULT_LOCALE = 'en';

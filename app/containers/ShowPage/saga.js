@@ -5,12 +5,14 @@
 import {
   call, put, takeLatest
 } from 'redux-saga/effects';
-import { LOAD_SHOW_DETAILS, LOAD_SIMILAR_SHOWS } from 'containers/App/constants';
+import { LOAD_SHOW_DETAILS, LOAD_SIMILAR_SHOWS, LOAD_SHOW_SEASON } from 'containers/App/constants';
 import {
   detailedShowLoaded,
   detailedShowLoadingError,
   similarShowsLoaded,
-  similarShowsLoadingError
+  similarShowsLoadingError,
+  seasonShowLoaded,
+  seasonShowLoadingError,
 } from 'containers/App/actions';
 
 import request from 'utils/request';
@@ -46,6 +48,21 @@ export function* getShowSimilars(action) {
   }
 }
 
+export function* getShowSeason(action) {
+  const requestedId = action.id;
+  const requestedSeason = action.seasonNumber;
+  // todo : env variables 
+  const requestURL = `http://127.0.0.1:5000/show/${requestedId}/season/${requestedSeason}`;
+  
+  try {
+    // Call our request helper (see 'utils/request')
+    const shows = yield call(request, requestURL);
+    yield put(seasonShowLoaded(requestedId, requestedSeason, shows.episodes));
+  } catch (err) {
+    yield put(seasonShowLoadingError(requestedId, requestedSeason, err));
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -56,6 +73,7 @@ export default function* detailedShowData() {
   // It will be cancelled automatically on component unmount
   yield* [
     takeLatest(LOAD_SHOW_DETAILS, getShowDetails),
-    takeLatest(LOAD_SIMILAR_SHOWS, getShowSimilars)
+    takeLatest(LOAD_SIMILAR_SHOWS, getShowSimilars),
+    takeLatest(LOAD_SHOW_SEASON, getShowSeason)
   ];
 }

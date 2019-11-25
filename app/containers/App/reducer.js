@@ -8,6 +8,9 @@ import {
   LOAD_SIMILAR_SHOWS,
   LOAD_SIMILAR_SHOWS_SUCCESS,
   LOAD_SIMILAR_SHOWS_ERROR,
+  LOAD_SHOW_SEASON,
+  LOAD_SHOW_SEASON_SUCCESS,
+  LOAD_SHOW_SEASON_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -134,6 +137,77 @@ function appReducer(state = initialState, action) {
         ...show,
         error: action.error,
         loadingSimilar: false
+      });
+      return newState;
+    }
+    case LOAD_SHOW_SEASON: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
+      if (!show || !show.seasons) {
+        return newState;
+      }
+      const season = show.seasons
+        .find(({season_number: seasonNumber}) => Number(seasonNumber) === Number(action.seasonNumber));
+      show.seasons = show.seasons
+        .filter(({season_number: seasonNumber}) => Number(seasonNumber) !== Number(action.seasonNumber));
+      show.seasons.push({
+        ...season,
+        loadingEpisodes: true,
+      });
+      
+      newState.shows.detailed = (newState.shows.detailed || [])
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
+      newState.shows.detailed.push({
+        ...show,
+      });
+      return newState;
+    }
+    case LOAD_SHOW_SEASON_SUCCESS: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
+      if (!show || !show.seasons) {
+        return newState;
+      }
+      const season = show.seasons
+        .find(({season_number: seasonNumber}) => Number(seasonNumber) === Number(action.seasonNumber));
+      show.seasons = show.seasons
+        .filter(({season_number: seasonNumber}) => Number(seasonNumber) !== Number(action.seasonNumber));
+      show.seasons.push({
+        ...season,
+        episodes: action.episodes,
+        loadingEpisodes: false,
+      });
+      
+      newState.shows.detailed = (newState.shows.detailed || [])
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
+      newState.shows.detailed.push({
+        ...show,
+      });
+      return newState;
+    }
+    case LOAD_SHOW_SEASON_ERROR: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
+      if (!show || !show.seasons) {
+        return newState;
+      }
+      const season = show.seasons
+        .find(({season_number: seasonNumber}) => Number(seasonNumber) === Number(action.seasonNumber));
+      show.seasons = show.seasons
+        .filter(({season_number: seasonNumber}) => Number(seasonNumber) !== Number(action.seasonNumber));
+      show.seasons.push({
+        ...season,
+        loadingEpisodes: false,
+      });
+      
+      newState.shows.detailed = (newState.shows.detailed || [])
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
+      newState.shows.detailed.push({
+        ...show,
+        error: action.error,
       });
       return newState;
     }

@@ -25,6 +25,9 @@ import {
   LOAD_SIMILAR_SHOWS,
   LOAD_SIMILAR_SHOWS_SUCCESS,
   LOAD_SIMILAR_SHOWS_ERROR,
+  LOAD_SHOW_SEASON,
+  LOAD_SHOW_SEASON_SUCCESS,
+  LOAD_SHOW_SEASON_ERROR,
 } from './constants';
 
 /**
@@ -109,6 +112,32 @@ export function similarShowsLoadingError(id, error) {
   return {
     type: LOAD_SIMILAR_SHOWS_ERROR,
     id,
+    error,
+  };
+}
+
+export function loadShowSeason(id, seasonNumber) {
+  return {
+    type: LOAD_SHOW_SEASON,
+    id,
+    seasonNumber
+  };
+}
+
+export function seasonShowLoaded(id, seasonNumber, episodes) {
+  return {
+    type: LOAD_SHOW_SEASON_SUCCESS,
+    id,
+    seasonNumber,
+    episodes
+  };
+}
+
+export function seasonShowLoadingError(id, seasonNumber, error) {
+  return {
+    type: LOAD_SHOW_SEASON_ERROR,
+    id,
+    seasonNumber,
     error,
   };
 }

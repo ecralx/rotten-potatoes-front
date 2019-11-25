@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoadingIndicator from '../LoadingIndicator';
 import ShowDetailsCard from '../ShowDetailsCard';
-import ShowsList from '../ShowsList/ShowsList';
+import ShowsList from '../ShowsList';
+import SeasonsList from '../SeasonsList';
 
 const useStyles = makeStyles({
   root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ShowDetailsGrid = ({ show }) => {
+const ShowDetailsGrid = ({ show, fetchSeason }) => {
   const classes = useStyles();
 
   return (
@@ -33,12 +34,22 @@ const ShowDetailsGrid = ({ show }) => {
         <LoadingIndicator />
       )}
       </Grid>
-      <Grid key={2} item
+      <Grid item
         xs={12} sm={12} md={4} lg={4} xl={4}
       >
         {(show && !show.loadingSimilar)
           ? (
             <ShowsList shows={show.similars ? show.similars.slice(0, 5) : []} />
+          ) : (
+            <LoadingIndicator />
+        )}
+      </Grid>
+      <Grid item
+        xs={12} sm={12} md={12} lg={12} xl={12}
+      >
+        {(show && !show.loading)
+          ? (
+            <SeasonsList seasons={show.seasons || []} fetchSeason={fetchSeason} />
           ) : (
             <LoadingIndicator />
         )}
@@ -49,6 +60,7 @@ const ShowDetailsGrid = ({ show }) => {
 
 ShowDetailsGrid.propTypes = {
   show: PropTypes.object,
+  fetchSeason: PropTypes.func,
 };
 
 export default ShowDetailsGrid;

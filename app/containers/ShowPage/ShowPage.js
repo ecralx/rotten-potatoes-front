@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import ShowDetailsGrid from 'components/ShowDetailsGrid';
 import './style.scss';
 
-export default function ShowPage({ fetchShow, shows, match }) {
+export default function ShowPage({ fetchShow, fetchSeason, shows, match }) {
   /**
    * Go fetch the shows
    */
@@ -19,7 +19,13 @@ export default function ShowPage({ fetchShow, shows, match }) {
     fetchShow(match.params.id);
   }, [match.params.id]);
   
-  const show = (shows || []).find(({tmdb_id: id}) => Number(id) === Number(match.params.id))
+  const show = (shows || [])
+    .find(({ tmdb_id: id }) => Number(id) === Number(match.params.id))
+  const loadSeason = (seasonNumber) => {
+    if (match.params.id) {
+      fetchSeason(match.params.id, seasonNumber);
+    }
+  };
 
   return (
     <article>
@@ -28,7 +34,7 @@ export default function ShowPage({ fetchShow, shows, match }) {
         <meta name="description" content={`Know more about ${(show && show.name) || 'the show'}`} />
       </Helmet>
       <div className="home-page">
-        <ShowDetailsGrid show={show || {}} />
+        <ShowDetailsGrid show={show || {}} fetchSeason={loadSeason} />
       </div>
     </article>
   );
