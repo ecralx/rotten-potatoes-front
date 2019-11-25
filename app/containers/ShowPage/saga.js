@@ -5,8 +5,13 @@
 import {
   call, put, takeLatest
 } from 'redux-saga/effects';
-import { LOAD_SHOW_DETAILS } from 'containers/App/constants';
-import { detailedShowLoaded, detailedShowLoadingError } from 'containers/App/actions';
+import { LOAD_SHOW_DETAILS, LOAD_SIMILAR_SHOWS } from 'containers/App/constants';
+import {
+  detailedShowLoaded,
+  detailedShowLoadingError,
+  similarShowsLoaded,
+  similarShowsLoadingError
+} from 'containers/App/actions';
 
 import request from 'utils/request';
 
@@ -17,13 +22,27 @@ export function* getShowDetails(action) {
   const requestedId = action.id;
   // todo : env variables 
   const requestURL = `http://127.0.0.1:5000/show/${requestedId}`;
-  
+
   try {
     // Call our request helper (see 'utils/request')
     const show = yield call(request, requestURL);
     yield put(detailedShowLoaded(show));
   } catch (err) {
     yield put(detailedShowLoadingError(requestedId, err));
+  }
+}
+
+export function* getShowSimilars(action) {
+  const requestedId = action.id;
+  // todo : env variables 
+  const requestURL = `http://127.0.0.1:5000/show/${requestedId}/similar`;
+  
+  try {
+    // Call our request helper (see 'utils/request')
+    const shows = yield call(request, requestURL);
+    yield put(similarShowsLoaded(requestedId, shows.results));
+  } catch (err) {
+    yield put(similarShowsLoadingError(requestedId, err));
   }
 }
 
@@ -35,5 +54,8 @@ export default function* detailedShowData() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_SHOW_DETAILS, getShowDetails);
+  yield* [
+    takeLatest(LOAD_SHOW_DETAILS, getShowDetails),
+    takeLatest(LOAD_SIMILAR_SHOWS, getShowSimilars)
+  ];
 }

@@ -3,8 +3,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectShowDetails } from 'containers/App/selectors';
-import { loadShowDetails } from '../App/actions';
+import { makeSelectShowDetails, makeSelectDetailedShows } from 'containers/App/selectors';
+import { loadShowDetails, loadShowSimilars } from '../App/actions';
 import reducer from './reducer';
 import saga from './saga';
 import ShowPage from './ShowPage';
@@ -12,11 +12,13 @@ import ShowPage from './ShowPage';
 const mapDispatchToProps = (dispatch) => ({
   fetchShow: (id) => {
     dispatch(loadShowDetails(id));
+    dispatch(loadShowSimilars(id));
   }
 });
 
 const mapStateToProps = (state, ownProps) => createStructuredSelector({
   show: makeSelectShowDetails(ownProps.match.params.id),
+  shows: makeSelectDetailedShows()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

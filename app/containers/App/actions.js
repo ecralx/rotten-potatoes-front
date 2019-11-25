@@ -21,7 +21,10 @@ import {
   LOAD_DISCOVERY_SHOWS_ERROR,
   LOAD_SHOW_DETAILS,
   LOAD_SHOW_DETAILS_SUCCESS,
-  LOAD_SHOW_DETAILS_ERROR
+  LOAD_SHOW_DETAILS_ERROR,
+  LOAD_SIMILAR_SHOWS,
+  LOAD_SIMILAR_SHOWS_SUCCESS,
+  LOAD_SIMILAR_SHOWS_ERROR,
 } from './constants';
 
 /**
@@ -82,6 +85,29 @@ export function detailedShowLoaded(show) {
 export function detailedShowLoadingError(id, error) {
   return {
     type: LOAD_SHOW_DETAILS_ERROR,
+    id,
+    error,
+  };
+}
+
+export function loadShowSimilars(id) {
+  return {
+    type: LOAD_SIMILAR_SHOWS,
+    id
+  };
+}
+
+export function similarShowsLoaded(id, shows) {
+  return {
+    type: LOAD_SIMILAR_SHOWS_SUCCESS,
+    id,
+    shows,
+  };
+}
+
+export function similarShowsLoadingError(id, error) {
+  return {
+    type: LOAD_SIMILAR_SHOWS_ERROR,
     id,
     error,
   };

@@ -7,22 +7,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router';
 
 import ShowDetailsGrid from 'components/ShowDetailsGrid';
 import './style.scss';
 
-export default function ShowPage({ fetchShow, show }) {
+export default function ShowPage({ fetchShow, shows, match }) {
   /**
    * Go fetch the shows
    */
-  const { id } = useParams();
-
   useEffect(() => {
-    if (!(show && show.name)) {
-      fetchShow(id);
-    }
-  }, []);
+    fetchShow(match.params.id);
+  }, [match.params.id]);
+  
+  const show = (shows || []).find(({tmdb_id: id}) => Number(id) === Number(match.params.id))
 
   return (
     <article>
@@ -39,5 +36,6 @@ export default function ShowPage({ fetchShow, show }) {
 
 ShowPage.propTypes = {
   show: PropTypes.object,
+  match: PropTypes.object,
   fetchShows: PropTypes.func,
 };

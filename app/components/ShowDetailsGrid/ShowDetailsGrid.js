@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LoadingIndicator from '../LoadingIndicator';
 import ShowDetailsCard from '../ShowDetailsCard';
+import ShowsList from '../ShowsList/ShowsList';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +19,7 @@ const ShowDetailsGrid = ({ show }) => {
   return (
     <Grid className={classes.root} container spacing={4}>
       <Grid item
-        xs={12} sm={12} md={9} lg={9} xl={9}
+        xs={12} sm={12} md={8} lg={8} xl={8}
       >
       {(show && !show.loading) ? (
         <ShowDetailsCard
@@ -33,11 +34,11 @@ const ShowDetailsGrid = ({ show }) => {
       )}
       </Grid>
       <Grid key={2} item
-        xs={12} sm={12} md={3} lg={3} xl={3}
+        xs={12} sm={12} md={4} lg={4} xl={4}
       >
         {(show && !show.loadingSimilar)
           ? (
-            <span>b</span>
+            <ShowsList shows={show.similars ? show.similars.slice(0, 5) : []} />
           ) : (
             <LoadingIndicator />
         )}

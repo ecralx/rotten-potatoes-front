@@ -4,7 +4,10 @@ import {
   LOAD_DISCOVERY_SHOWS_ERROR,
   LOAD_SHOW_DETAILS,
   LOAD_SHOW_DETAILS_SUCCESS,
-  LOAD_SHOW_DETAILS_ERROR
+  LOAD_SHOW_DETAILS_ERROR,
+  LOAD_SIMILAR_SHOWS,
+  LOAD_SIMILAR_SHOWS_SUCCESS,
+  LOAD_SIMILAR_SHOWS_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -58,17 +61,26 @@ function appReducer(state = initialState, action) {
     }
     case LOAD_SHOW_DETAILS: {
       const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id)) || {};
       newState.shows.detailed = (newState.shows.detailed || [])
         .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
-      newState.shows.detailed.push({ tmdb_id: action.id, loading: true });
+      newState.shows.detailed.push({
+        tmdb_id: action.id,
+        ...show,
+        loading: true
+      });
       return newState;
     }
     case LOAD_SHOW_DETAILS_SUCCESS: {
       const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
       newState.shows.detailed = newState.shows.detailed
         .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));      
       newState.shows.detailed.push({
         tmdb_id: action.id,
+        ...show,
         ...action.show, 
         loading: false
       });
@@ -76,12 +88,52 @@ function appReducer(state = initialState, action) {
     }
     case LOAD_SHOW_DETAILS_ERROR: {
       const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
       newState.shows.detailed = newState.shows.detailed
         .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
       newState.shows.detailed.push({
         tmdb_id: action.id,
+        ...show,
         error: action.error,
         loading: false
+      });
+      return newState;
+    }
+    case LOAD_SIMILAR_SHOWS: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id)) || {};
+      newState.shows.detailed = (newState.shows.detailed || [])
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
+      newState.shows.detailed.push({ ...show, loadingSimilar: true });
+      return newState;
+    }
+    case LOAD_SIMILAR_SHOWS_SUCCESS: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
+      newState.shows.detailed = newState.shows.detailed
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));      
+      newState.shows.detailed.push({
+        tmdb_id: action.id,
+        ...show,
+        similars: action.shows,
+        loadingSimilar: false
+      });
+    return newState;
+    }
+    case LOAD_SIMILAR_SHOWS_ERROR: {
+      const newState = { ...state };
+      const show = (newState.shows.detailed || [])
+        .find(({ tmdb_id: id }) => Number(id) === Number(action.id));
+      newState.shows.detailed = newState.shows.detailed
+        .filter(({ tmdb_id: id }) => Number(id) !== Number(action.id));
+      newState.shows.detailed.push({
+        tmdb_id: action.id,
+        ...show,
+        error: action.error,
+        loadingSimilar: false
       });
       return newState;
     }
