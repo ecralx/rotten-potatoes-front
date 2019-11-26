@@ -11,9 +11,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function ShowsGrid({ shows }) {
+export default function ShowsGrid({ shows, addToFavourites, removeFromFavourites }) {
   const classes = useStyles();
-
+  console.log(shows);
   return (
     <Grid className={classes.root} container spacing={4}>
     {shows.map( (show) => (
@@ -26,6 +26,9 @@ export default function ShowsGrid({ shows }) {
           overview={(show.overview || ''). length > 200 ? show.overview.substring(0, 200) + '...' : show.overview}
           mediaPath={show.poster_path ? `https://image.tmdb.org/t/p/w500/${show.poster_path}` : ''}
           voteAverage={show.vote_average}
+          isLiked={show.is_liked}
+          addToFavourites={addToFavourites}
+          removeFromFavourites={removeFromFavourites}
         />
       </Grid>
     ))}
@@ -35,4 +38,6 @@ export default function ShowsGrid({ shows }) {
 
 ShowsGrid.propTypes = {
   shows: PropTypes.array,
+  removeFromFavourites: PropTypes.func,
+  addToFavourites: PropTypes.func,
 };

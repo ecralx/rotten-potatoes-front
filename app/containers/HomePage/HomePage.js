@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import ShowsDisplay from 'components/ShowsDisplay';
 import './style.scss';
 
-export default function HomePage({ fetchShows, discoveryShows }) {
+export default function HomePage({ fetchShows, addToFavourites, removeFromFavourites, discoveryShows }) {
   /**
    * Go fetch the shows
    */
@@ -40,6 +40,8 @@ export default function HomePage({ fetchShows, discoveryShows }) {
           <ShowsDisplay
             {...(discoveryShows || {})}
             showMore={() => fetchShows((discoveryShows || {page : 0}).page + 1)}
+            addToFavourites={addToFavourites}
+            removeFromFavourites={removeFromFavourites}
           />
         </section>
       </div>

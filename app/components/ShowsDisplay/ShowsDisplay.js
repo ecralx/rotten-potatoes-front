@@ -22,7 +22,9 @@ const ShowsDisplay = ({
   totalResults,
   page,
   results,
-  showMore
+  showMore,
+  addToFavourites,
+  removeFromFavourites
 }) => {
   if (error !== false) {
     return (<p>{ error }</p>);
@@ -32,7 +34,7 @@ const ShowsDisplay = ({
   return (
     <section className={classes.root}>
       {!!results && results.length > 0 && (
-        <ShowsGrid shows={ results } />
+        <ShowsGrid shows={ results } addToFavourites={addToFavourites} removeFromFavourites={removeFromFavourites}/>
       )}
       {!!loading && (
         <LoadingIndicator />
@@ -55,7 +57,9 @@ const ShowsDisplay = ({
 ShowsDisplay.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any
+  repos: PropTypes.any,
+  removeFromFavourites: PropTypes.func,
+  addToFavourites: PropTypes.func,
 };
 
 export default ShowsDisplay;

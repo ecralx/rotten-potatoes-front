@@ -16,6 +16,14 @@ import {
   LOAD_SHOW_SEASON_SUCCESS,
   LOAD_SHOW_SEASON_ERROR,
   
+  
+  POST_ADD_FAVOURITE,
+  POST_ADD_FAVOURITE_SUCCESS,
+  POST_ADD_FAVOURITE_ERROR,
+  POST_REMOVE_FAVOURITE,
+  POST_REMOVE_FAVOURITE_SUCCESS,
+  POST_REMOVE_FAVOURITE_ERROR,
+
   POST_REGISTER_USER,
   POST_REGISTER_USER_SUCCESS,
   POST_REGISTER_USER_ERROR,
@@ -289,6 +297,73 @@ function appReducer(state = initialState, action) {
           error: action.error
         }
       };
+    }
+    case POST_ADD_FAVOURITE: {
+      const newState = { ...state };
+      return newState;
+    }
+    case POST_ADD_FAVOURITE_SUCCESS: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const { shows: { discovery, search, favourites, detailed } } = newState;
+      
+      let copyShow = {};
+      
+      [discovery, search].forEach((showsOf) => {
+        if (showsOf) {
+          const show = showsOf.results
+            .find(({ tmdb_id: id}) => Number(id) === Number(action.id))
+          if (show) {
+            show.is_liked = true;
+            copyShow = {...show};
+          }
+        }
+      });
+      if(detailed) {
+        const show = detailed
+          .find(({ tmdb_id: id}) => Number(id) === Number(action.id))
+        if (show) {
+          show.is_liked = true;
+          copyShow = {...show};
+        }
+      }
+
+      if(favourites) {
+        favourites.results.push(copyShow)
+        favourites.loading = false;
+        favourites.totalResults = (favourites.totalResults || 0) + 1;
+      }
+
+      return newState;
+    }
+    case POST_ADD_FAVOURITE_ERROR: {
+      const newState = { ...state };
+      return newState;
+    }
+    case POST_REMOVE_FAVOURITE_SUCCESS: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const { shows: { discovery, search, favourites, detailed } } = newState;
+      [discovery, search].forEach((showsOf) => {
+        if (showsOf) {
+          const show = showsOf.results
+            .find(({ tmdb_id: id}) => Number(id) === Number(action.id))
+          if (show) {
+            show.is_liked = false;
+          }
+        }
+      });
+      if(detailed) {
+        const show = detailed
+          .find(({ tmdb_id: id}) => Number(id) === Number(action.id))
+        if (show) {
+          show.is_liked = false;
+        }
+      }
+      if(favourites) {
+        favourites.results = favourites.results.filter(({ tmdb_id: id }) => Number(id) !== Number(action.id) )
+        favourites.loading = false;
+        favourites.totalResults = Math.min((favourites.totalResults || 0) - 1, 0);
+      }
+      return newState;
     }
     default:
       return state;

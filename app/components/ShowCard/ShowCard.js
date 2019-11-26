@@ -7,7 +7,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -25,11 +26,22 @@ export default function ShowCard({
     overview,
     mediaPath,
     voteAverage,
+    isLiked,
+    addToFavourites,
+    removeFromFavourites,
 }) {
   let history = useHistory();
   const classes = useStyles();
   const goToShow = () => {
     history.push(`show/${id}`);
+  }
+  
+  const addFavourite = () => {
+    addToFavourites(id)
+  }
+
+  const removeFavourite = () => {
+    removeFromFavourites(id)
   }
 
   return (
@@ -52,13 +64,10 @@ export default function ShowCard({
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Like
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites" onClick={isLiked ? removeFavourite : addFavourite}>
+          <FavoriteIcon color={isLiked ? 'primary' : 'inherit'}/>
+        </IconButton>
       </CardActions>
     </Card>
   );
@@ -70,4 +79,7 @@ ShowCard.propTypes = {
   overview: PropTypes.string,
   mediaPath: PropTypes.string,
   voteAverage: PropTypes.number,
+  removeFromFavourites: PropTypes.func,
+  addToFavourites: PropTypes.func,
+  isLiked: PropTypes.bool,
 };

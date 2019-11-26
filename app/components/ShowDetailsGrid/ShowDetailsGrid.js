@@ -29,6 +29,7 @@ const ShowDetailsGrid = ({ show, fetchSeason }) => {
           overview={show.overview}
           mediaPath={show.poster_path ? `https://image.tmdb.org/t/p/w500/${show.poster_path}` : 'https://via.placeholder.com/500?text=Please%20Wait'}
           voteAverage={show.vote_average}
+          isLiked={show.is_liked}
         />
       ) : (
         <LoadingIndicator />

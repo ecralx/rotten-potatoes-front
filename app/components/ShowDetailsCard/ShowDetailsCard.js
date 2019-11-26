@@ -25,6 +25,7 @@ const ShowDetailsCard = ({
   overview,
   mediaPath,
   voteAverage,
+  isLiked,  
 }) => {
   const classes = useStyles();
   return (
@@ -47,7 +48,7 @@ const ShowDetailsCard = ({
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon color={isLiked ? 'primary' : ''} />
         </IconButton>
       </CardActions>
     </Card>
@@ -60,6 +61,7 @@ ShowDetailsCard.propTypes = {
   overview: PropTypes.string,
   mediaPath: PropTypes.string,
   voteAverage: PropTypes.number,
+  isLiked: PropTypes.bool,
 };
 
 export default ShowDetailsCard;

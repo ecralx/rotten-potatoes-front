@@ -33,6 +33,13 @@ import {
   LOAD_SHOW_SEASON_SUCCESS,
   LOAD_SHOW_SEASON_ERROR,
   
+  POST_ADD_FAVOURITE,
+  POST_ADD_FAVOURITE_SUCCESS,
+  POST_ADD_FAVOURITE_ERROR,
+  POST_REMOVE_FAVOURITE,
+  POST_REMOVE_FAVOURITE_SUCCESS,
+  POST_REMOVE_FAVOURITE_ERROR,
+
   POST_REGISTER_USER,
   POST_REGISTER_USER_SUCCESS,
   POST_REGISTER_USER_ERROR,
@@ -207,6 +214,48 @@ export function loginUser(email, password) {
 export function loginUserLoadingError(error) {
   return {
     type: POST_LOGIN_USER_ERROR,
+    error,
+  };
+}
+
+export function addFavourite(id) {
+  return {
+    type: POST_ADD_FAVOURITE,
+    id
+  };
+}
+
+export function addedFavourite(id) {
+  return {
+    type: POST_ADD_FAVOURITE_SUCCESS,
+    id,
+  };
+}
+
+export function addedFavouriteLoadingError(error) {
+  return {
+    type: POST_ADD_FAVOURITE_ERROR,
+    error,
+  };
+}
+
+export function removeFavourite(id) {
+  return {
+    type: POST_REMOVE_FAVOURITE,
+    id
+  };
+}
+
+export function removedFavourite(id) {
+  return {
+    type: POST_REMOVE_FAVOURITE_SUCCESS,
+    id,
+  };
+}
+
+export function removedFavouriteLoadingError(error) {
+  return {
+    type: POST_REMOVE_FAVOURITE_ERROR,
     error,
   };
 }
