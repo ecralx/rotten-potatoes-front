@@ -26,4 +26,11 @@ export const LOAD_SHOW_SEASON = 'rotten-potatoes/App/LOAD_SHOW_SEASON';
 export const LOAD_SHOW_SEASON_SUCCESS = 'rotten-potatoes/App/LOAD_SHOW_SEASON_SUCCESS';
 export const LOAD_SHOW_SEASON_ERROR = 'rotten-potatoes/App/LOAD_SHOW_SEASON_ERROR';
 
+export const POST_REGISTER_USER = 'rotten-potatoes/App/POST_REGISTER_USER';
+export const POST_REGISTER_USER_SUCCESS = 'rotten-potatoes/App/POST_REGISTER_USER_SUCCESS';
+export const POST_REGISTER_USER_ERROR = 'rotten-potatoes/App/POST_REGISTER_USER_ERROR';
+export const POST_LOGIN_USER = 'rotten-potatoes/App/POST_LOGIN_USER';
+export const POST_LOGIN_USER_SUCCESS = 'rotten-potatoes/App/POST_LOGIN_USER_SUCCESS';
+export const POST_LOGIN_USER_ERROR = 'rotten-potatoes/App/POST_LOGIN_USER_ERROR';
+
 export const DEFAULT_LOCALE = 'en';

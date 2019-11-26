@@ -91,6 +91,10 @@ const SearchAppBar = ({ resetShows }) => {
     history.push('/');
   }
 
+  const goToLogin = () => {
+    history.push('/login');
+  }
+
   const goToSearch = (e) => {
     if (e.key === 'Enter' && query.length > 0) {
       resetShows();
@@ -126,7 +130,7 @@ const SearchAppBar = ({ resetShows }) => {
               onKeyDown={goToSearch}
             />
           </div>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={goToLogin}>Login</Button>
         </Toolbar>
       </AppBar>
     </div>

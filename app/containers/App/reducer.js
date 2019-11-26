@@ -15,10 +15,20 @@ import {
   LOAD_SHOW_SEASON,
   LOAD_SHOW_SEASON_SUCCESS,
   LOAD_SHOW_SEASON_ERROR,
+  
+  POST_REGISTER_USER,
+  POST_REGISTER_USER_SUCCESS,
+  POST_REGISTER_USER_ERROR,
+  POST_LOGIN_USER,
+  POST_LOGIN_USER_SUCCESS,
+  POST_LOGIN_USER_ERROR,
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
+  user: {
+    error: false
+  },
   shows: {
     discovery: false,
     search: false,
@@ -257,6 +267,28 @@ function appReducer(state = initialState, action) {
         error: action.error,
       });
       return newState;
+    }
+    case POST_LOGIN_USER: {
+      return state;
+    }
+    case POST_LOGIN_USER_ERROR: {
+      return {
+        ...state,
+        user: {
+          error: action.error
+        }
+      };
+    }
+    case POST_REGISTER_USER: {
+      return state;
+    }
+    case POST_REGISTER_USER_ERROR: {
+      return {
+        ...state,
+        user: {
+          error: action.error
+        }
+      };
     }
     default:
       return state;

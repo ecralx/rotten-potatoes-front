@@ -32,6 +32,13 @@ import {
   LOAD_SHOW_SEASON,
   LOAD_SHOW_SEASON_SUCCESS,
   LOAD_SHOW_SEASON_ERROR,
+  
+  POST_REGISTER_USER,
+  POST_REGISTER_USER_SUCCESS,
+  POST_REGISTER_USER_ERROR,
+  POST_LOGIN_USER,
+  POST_LOGIN_USER_SUCCESS,
+  POST_LOGIN_USER_ERROR,
 } from './constants';
 
 /**
@@ -170,6 +177,36 @@ export function seasonShowLoadingError(id, seasonNumber, error) {
     type: LOAD_SHOW_SEASON_ERROR,
     id,
     seasonNumber,
+    error,
+  };
+}
+
+export function registerUser(email, password) {
+  return {
+    type: POST_REGISTER_USER,
+    email,
+    password
+  };
+}
+
+export function registerUserLoadingError(error) {
+  return {
+    type: POST_REGISTER_USER_ERROR,
+    error,
+  };
+}
+
+export function loginUser(email, password) {
+  return {
+    type: POST_LOGIN_USER,
+    email,
+    password
+  };
+}
+
+export function loginUserLoadingError(error) {
+  return {
+    type: POST_LOGIN_USER_ERROR,
     error,
   };
 }
