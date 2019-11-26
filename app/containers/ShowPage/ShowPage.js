@@ -11,7 +11,14 @@ import { Helmet } from 'react-helmet';
 import ShowDetailsGrid from 'components/ShowDetailsGrid';
 import './style.scss';
 
-export default function ShowPage({ fetchShow, fetchSeason, shows, match }) {
+export default function ShowPage({
+  fetchShow,
+  fetchSeason,
+  addToFavourites,
+  removeFromFavourites,
+  shows,
+  match
+}) {
   /**
    * Go fetch the shows
    */
@@ -34,7 +41,12 @@ export default function ShowPage({ fetchShow, fetchSeason, shows, match }) {
         <meta name="description" content={`Know more about ${(show && show.name) || 'the show'}`} />
       </Helmet>
       <div className="home-page">
-        <ShowDetailsGrid show={show || {}} fetchSeason={loadSeason} />
+        <ShowDetailsGrid
+          show={show || {}}
+          fetchSeason={loadSeason}
+          addToFavourites={addToFavourites}
+          removeFromFavourites={removeFromFavourites}
+        />
       </div>
     </article>
   );

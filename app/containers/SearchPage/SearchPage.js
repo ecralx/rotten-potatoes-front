@@ -11,7 +11,13 @@ import { Helmet } from 'react-helmet';
 import ShowsDisplay from 'components/ShowsDisplay';
 import './style.scss';
 
-export default function SearchPage({ fetchShows, searchShows, match }) {
+export default function SearchPage({
+  fetchShows,
+  searchShows,
+  match,
+  addToFavourites,
+  removeFromFavourites
+}) {
   /**
    * Go fetch the shows
    */
@@ -33,6 +39,8 @@ export default function SearchPage({ fetchShows, searchShows, match }) {
           <ShowsDisplay
             {...(searchShows || {})}
             showMore={() => fetchShows(match.params.query, (searchShows || {page : 0}).page + 1)}
+            addToFavourites={addToFavourites}
+            removeFromFavourites={removeFromFavourites}
           />
         </section>
       </div>
@@ -44,4 +52,6 @@ SearchPage.propTypes = {
   searchShows: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   fetchShows: PropTypes.func,
   match: PropTypes.object,
+  addToFavourites: PropTypes.func,
+  removeFromFavourites: PropTypes.func
 };

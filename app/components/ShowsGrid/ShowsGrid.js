@@ -13,7 +13,6 @@ const useStyles = makeStyles({
 
 export default function ShowsGrid({ shows, addToFavourites, removeFromFavourites }) {
   const classes = useStyles();
-  console.log(shows);
   return (
     <Grid className={classes.root} container spacing={4}>
     {shows.map( (show) => (

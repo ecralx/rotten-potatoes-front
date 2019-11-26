@@ -4,7 +4,13 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectShowDetails, makeSelectDetailedShows } from 'containers/App/selectors';
-import { loadShowDetails, loadShowSimilars, loadShowSeason } from '../App/actions';
+import {
+  loadShowDetails,
+  loadShowSimilars,
+  loadShowSeason,
+  removeFavourite,
+  addFavourite
+} from '../App/actions';
 import reducer from './reducer';
 import saga from './saga';
 import ShowPage from './ShowPage';
@@ -16,7 +22,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchSeason: (id, seasonNumber) => {
     dispatch(loadShowSeason(id, seasonNumber));
-  }
+  },
+  addToFavourites: (id) => {
+    dispatch(addFavourite(id));
+  },
+  removeFromFavourites: (id) => {
+    dispatch(removeFavourite(id));
+  },
 });
 
 const mapStateToProps = (state, ownProps) => createStructuredSelector({

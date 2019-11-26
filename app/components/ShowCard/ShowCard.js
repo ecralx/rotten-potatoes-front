@@ -37,11 +37,15 @@ export default function ShowCard({
   }
   
   const addFavourite = () => {
-    addToFavourites(id)
+    if(id){
+      addToFavourites(id);
+    }
   }
 
   const removeFavourite = () => {
-    removeFromFavourites(id)
+    if(id){
+      removeFromFavourites(id);
+    }
   }
 
   return (

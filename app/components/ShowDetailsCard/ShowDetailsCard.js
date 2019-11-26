@@ -25,9 +25,26 @@ const ShowDetailsCard = ({
   overview,
   mediaPath,
   voteAverage,
-  isLiked,  
+  isLiked,
+  addToFavourites,
+  removeFromFavourites,
 }) => {
   const classes = useStyles();
+
+  
+  const addFavourite = () => {
+    if(id){
+      addToFavourites(id);
+    }
+  }
+
+  const removeFavourite = () => {
+    if(id){
+      removeFromFavourites(id);
+    }
+  }
+
+
   return (
     <Card key={id} className={classes.card}>
       <CardMedia
@@ -47,8 +64,8 @@ const ShowDetailsCard = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon color={isLiked ? 'primary' : ''} />
+        <IconButton aria-label="add to favorites" onClick={isLiked ? removeFavourite : addFavourite}>
+          <FavoriteIcon color={isLiked ? 'primary' : 'inherit'} />
         </IconButton>
       </CardActions>
     </Card>

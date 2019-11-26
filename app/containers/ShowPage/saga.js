@@ -5,7 +5,13 @@
 import {
   call, put, takeLatest
 } from 'redux-saga/effects';
-import { LOAD_SHOW_DETAILS, LOAD_SIMILAR_SHOWS, LOAD_SHOW_SEASON } from 'containers/App/constants';
+import {
+  LOAD_SHOW_DETAILS,
+  LOAD_SIMILAR_SHOWS,
+  LOAD_SHOW_SEASON,
+  POST_ADD_FAVOURITE,
+  POST_REMOVE_FAVOURITE
+} from 'containers/App/constants';
 import {
   detailedShowLoaded,
   detailedShowLoadingError,
@@ -13,6 +19,10 @@ import {
   similarShowsLoadingError,
   seasonShowLoaded,
   seasonShowLoadingError,
+  addedFavourite,
+  addedFavouriteLoadingError,
+  removedFavourite,
+  removedFavouriteLoadingError,
 } from 'containers/App/actions';
 
 import request from 'utils/request';
@@ -63,6 +73,46 @@ export function* getShowSeason(action) {
   }
 }
 
+export function* addFavourite(action) {
+  const requestedId = action.id;
+  // todo : env variables 
+  const requestURL = `http://127.0.0.1:5000/user/favourite/add`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({tmdb_id : requestedId})
+  }
+  try {
+    // Call our request helper (see 'utils/request')
+    const resp = yield call(request, requestURL, options);
+    yield put(addedFavourite(requestedId));
+  } catch (err) {
+    yield put(addedFavouriteLoadingError(err));
+  }
+}
+
+export function* removeFavourite(action) {
+  const requestedId = action.id;
+  // todo : env variables 
+  const requestURL = `http://127.0.0.1:5000/user/favourite/remove`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({tmdb_id : requestedId})
+  }
+  try {
+    // Call our request helper (see 'utils/request')
+    const resp = yield call(request, requestURL, options);
+    yield put(removedFavourite(requestedId));
+  } catch (err) {
+    yield put(removedFavouriteLoadingError(err));
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -74,6 +124,8 @@ export default function* detailedShowData() {
   yield* [
     takeLatest(LOAD_SHOW_DETAILS, getShowDetails),
     takeLatest(LOAD_SIMILAR_SHOWS, getShowSimilars),
-    takeLatest(LOAD_SHOW_SEASON, getShowSeason)
+    takeLatest(LOAD_SHOW_SEASON, getShowSeason),
+    takeLatest(POST_ADD_FAVOURITE, addFavourite),
+    takeLatest(POST_REMOVE_FAVOURITE, removeFavourite)
   ];
 }

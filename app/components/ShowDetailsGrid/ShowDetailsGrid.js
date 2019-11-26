@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ShowDetailsGrid = ({ show, fetchSeason }) => {
+const ShowDetailsGrid = ({ show, fetchSeason, addToFavourites, removeFromFavourites }) => {
   const classes = useStyles();
 
   return (
@@ -30,6 +30,8 @@ const ShowDetailsGrid = ({ show, fetchSeason }) => {
           mediaPath={show.poster_path ? `https://image.tmdb.org/t/p/w500/${show.poster_path}` : 'https://via.placeholder.com/500?text=Please%20Wait'}
           voteAverage={show.vote_average}
           isLiked={show.is_liked}
+          addToFavourites={addToFavourites}
+          removeFromFavourites={removeFromFavourites}
         />
       ) : (
         <LoadingIndicator />
