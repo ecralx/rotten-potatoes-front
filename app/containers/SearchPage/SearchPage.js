@@ -29,7 +29,7 @@ export default function SearchPage({ fetchShows, searchShows, match }) {
       </Helmet>
       <div className="home-page">
         <section>
-          <h2>Searching for: "{match.params.query}" {searchShows && searchShows.totalResults ? `(${searchShows.totalResults} results)` : ''}</h2>
+          <h2>Searching for: "{match.params.query}" {searchShows && Number(searchShows.totalResults) >= 0 ? `(${searchShows.totalResults} results)` : ''}</h2>
           <ShowsDisplay
             {...(searchShows || {})}
             showMore={() => fetchShows(match.params.query, (searchShows || {page : 0}).page + 1)}

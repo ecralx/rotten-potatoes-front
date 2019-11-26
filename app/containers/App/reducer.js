@@ -2,6 +2,7 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  RESET_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS_SUCCESS,
   LOAD_SEARCH_SHOWS_ERROR,
@@ -63,6 +64,12 @@ function appReducer(state = initialState, action) {
         loading: false,
         error: action.error
       };
+      return newState;
+    }
+    case RESET_SEARCH_SHOWS: {
+      const newState = { ...state };
+      newState.shows.search = false;
+
       return newState;
     }
     case LOAD_SEARCH_SHOWS: {

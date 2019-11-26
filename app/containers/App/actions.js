@@ -19,6 +19,7 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  RESET_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS_SUCCESS,
   LOAD_SEARCH_SHOWS_ERROR,
@@ -70,6 +71,12 @@ export function discoveryShowsLoadingError(error) {
   return {
     type: LOAD_DISCOVERY_SHOWS_ERROR,
     error,
+  };
+}
+
+export function resetSearchShows() {
+  return {
+    type: RESET_SEARCH_SHOWS,
   };
 }
 

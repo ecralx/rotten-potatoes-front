@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
+import { resetSearchShows } from 'containers/App/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,12 +78,24 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function SearchAppBar() {
+const SearchAppBar = ({ resetShows }) => {
   const history = useHistory();
   const classes = useStyles();
+  
+  const [query, setQuery] = React.useState('');
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   const goToHome = () => {
-    history.push('/')
+    history.push('/');
+  }
+
+  const goToSearch = (e) => {
+    if (e.key === 'Enter' && query.length > 0) {
+      resetShows();
+      history.push(`/search/${query}`);
+    }
   }
 
   return (
@@ -107,6 +121,9 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              value={query}
+              onChange={handleChange}
+              onKeyDown={goToSearch}
             />
           </div>
           <Button color="inherit">Login</Button>
@@ -114,4 +131,10 @@ export default function SearchAppBar() {
       </AppBar>
     </div>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  resetShows: () => dispatch(resetSearchShows()),
+})
+
+export default connect(null, mapDispatchToProps)(SearchAppBar);
