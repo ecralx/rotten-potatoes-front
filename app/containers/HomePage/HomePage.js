@@ -19,7 +19,6 @@ import ShowsDisplay from 'components/ShowsDisplay';
 import { SHOWS_GENRES } from '../App/constants';
 
 import './style.scss';
-import { resetSearchShows } from '../App/actions';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
