@@ -19,11 +19,11 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
-  if (response.status === 204 || response.status === 205) {
+  if (response.status_code === 204 || response.status_code === 205) {
     return null;
   }
-  if (response.status >= 200 && response.status < 300) {
-    return response.json;
+  if (response.status_code >= 200 && response.status_code < 300) {
+    return response;
   }
   const error = new Error(response.message || response.status);
   throw error;

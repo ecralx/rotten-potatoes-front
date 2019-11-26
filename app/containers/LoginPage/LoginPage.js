@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React,{ useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,6 +52,10 @@ export default function LoginPage({ loginUser, registerUser, error }) {
   const [loginPassword, setLoginPassword] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+  }, []);
   
   const login = () => {
     if(validEmail(loginEmail) && validPassword(loginPassword)) {
