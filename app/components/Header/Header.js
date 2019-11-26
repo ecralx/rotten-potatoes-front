@@ -96,6 +96,10 @@ const SearchAppBar = ({ resetShows }) => {
   const goToHome = () => {
     history.push('/');
   }
+  
+  const goToFavs = () => {
+    history.push('/favourites');
+  }
 
   const goToLogin = () => {
     setIsLoggedIn(false);
@@ -137,6 +141,11 @@ const SearchAppBar = ({ resetShows }) => {
               onKeyDown={goToSearch}
             />
           </div>
+          {isLoggedIn && (
+            <Button color="inherit" onClick={goToFavs}>
+              Favourites
+            </Button>
+          )}
           <Button color="inherit" onClick={goToLogin}>
             {isLoggedIn ? 'Logout' : 'Login'}
           </Button>

@@ -2,6 +2,9 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  LOAD_FAVOURITE_SHOWS,
+  LOAD_FAVOURITE_SHOWS_SUCCESS,
+  LOAD_FAVOURITE_SHOWS_ERROR,
   RESET_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS_SUCCESS,
@@ -79,6 +82,43 @@ function appReducer(state = initialState, action) {
       const newState = { ...state };
       newState.shows.discovery = {
         ...state.shows.discovery,
+        loading: false,
+        error: action.error
+      };
+      return newState;
+    }
+    case LOAD_FAVOURITE_SHOWS: {
+      const newState = { ...state };
+      newState.shows.favourites = newState.shows.favourites
+        ? {
+          ...newState.shows.favourites,
+          loading: true,
+          page: action.page
+        }
+        : {
+          loading: true,
+          results: [],
+          totalResults: false,
+          page: action.page,
+          error: false
+        };
+
+      return newState;
+    }
+    case LOAD_FAVOURITE_SHOWS_SUCCESS: {
+      const newState = { ...state };
+      newState.shows.favourites = {
+        ...state.shows.favourites,
+        loading: false,
+        results: [...state.shows.favourites.results, ...action.shows.results],
+        totalResults: action.shows.total_results
+      };
+      return newState;
+    }
+    case LOAD_FAVOURITE_SHOWS_ERROR: {
+      const newState = { ...state };
+      newState.shows.favourites = {
+        ...state.shows.favourites,
         loading: false,
         error: action.error
       };

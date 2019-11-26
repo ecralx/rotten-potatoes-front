@@ -19,6 +19,9 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  LOAD_FAVOURITE_SHOWS,
+  LOAD_FAVOURITE_SHOWS_SUCCESS,
+  LOAD_FAVOURITE_SHOWS_ERROR,
   RESET_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS,
   LOAD_SEARCH_SHOWS_SUCCESS,
@@ -84,6 +87,27 @@ export function discoveryShowsLoaded(shows) {
 export function discoveryShowsLoadingError(error) {
   return {
     type: LOAD_DISCOVERY_SHOWS_ERROR,
+    error,
+  };
+}
+
+export function loadFavouriteShows(page = 1) {
+  return {
+    type: LOAD_FAVOURITE_SHOWS,
+    page
+  };
+}
+
+export function favouriteShowsLoaded(shows) {
+  return {
+    type: LOAD_FAVOURITE_SHOWS_SUCCESS,
+    shows,
+  };
+}
+
+export function favouriteShowsLoadingError(error) {
+  return {
+    type: LOAD_FAVOURITE_SHOWS_ERROR,
     error,
   };
 }

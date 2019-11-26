@@ -25,6 +25,11 @@ const makeSelectDiscoveryShows = () => createSelector(
   (globalState) => globalState.shows.discovery
 );
 
+const makeSelectFavouriteShows = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.shows.favourites
+);
+
 const makeSelectSearchShows = () => createSelector(
   selectGlobal,
   (globalState) => globalState.shows.search
@@ -56,6 +61,7 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectDiscoveryShows,
+  makeSelectFavouriteShows,
   makeSelectSearchShows,
   makeSelectDetailedShows,
   makeSelectShowDetails,
