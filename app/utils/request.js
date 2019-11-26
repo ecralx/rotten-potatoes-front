@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-
+import history from './history';
 /**
  * Parses the JSON returned by a network request
  *
@@ -24,6 +24,9 @@ function checkStatus(response) {
   }
   if (response.status_code >= 200 && response.status_code < 300) {
     return response;
+  }
+  if (response.status_code == 401) {
+    history.push('/login');
   }
   const error = new Error(response.message || response.status);
   throw error;
