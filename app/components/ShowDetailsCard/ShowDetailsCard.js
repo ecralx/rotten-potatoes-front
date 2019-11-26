@@ -26,6 +26,7 @@ const ShowDetailsCard = ({
   mediaPath,
   voteAverage,
   isLiked,
+  genres,
   addToFavourites,
   removeFromFavourites,
 }) => {
@@ -44,7 +45,6 @@ const ShowDetailsCard = ({
     }
   }
 
-
   return (
     <Card key={id} className={classes.card}>
       <CardMedia
@@ -61,6 +61,9 @@ const ShowDetailsCard = ({
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {overview}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          Genres: {(genres || []).map(({ name }) => name).join(', ')}.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

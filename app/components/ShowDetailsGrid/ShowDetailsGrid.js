@@ -30,6 +30,7 @@ const ShowDetailsGrid = ({ show, fetchSeason, addToFavourites, removeFromFavouri
           mediaPath={show.poster_path ? `https://image.tmdb.org/t/p/w500/${show.poster_path}` : 'https://via.placeholder.com/500?text=Please%20Wait'}
           voteAverage={show.vote_average}
           isLiked={show.is_liked}
+          genres={show.genres}
           addToFavourites={addToFavourites}
           removeFromFavourites={removeFromFavourites}
         />
