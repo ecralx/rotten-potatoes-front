@@ -4,14 +4,17 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectDiscoveryShows } from 'containers/App/selectors';
-import { loadDiscoveryShows, removeFavourite, addFavourite } from '../App/actions';
+import { loadDiscoveryShows, resetDiscoveryShows, removeFavourite, addFavourite } from '../App/actions';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchShows: (page = 1) => {
-    dispatch(loadDiscoveryShows(page));
+  fetchShows: (page = 1, genres = '') => {
+    dispatch(loadDiscoveryShows(page, genres));
+  },
+  resetShows: () => {
+    dispatch(resetDiscoveryShows());
   },
   addToFavourites: (id) => {
     dispatch(addFavourite(id));

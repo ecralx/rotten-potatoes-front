@@ -16,6 +16,7 @@
  */
 
 import {
+  RESET_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
@@ -51,15 +52,22 @@ import {
   POST_LOGIN_USER_ERROR,
 } from './constants';
 
+export function resetDiscoveryShows() {
+  return {
+    type: RESET_DISCOVERY_SHOWS,
+  };
+}
+
 /**
  * Load the discovery shows, this action starts the request saga
  *
  * @return {object} An action object with a type of LOAD_DISCOVERY_SHOWS
  */
-export function loadDiscoveryShows(page = 1) {
+export function loadDiscoveryShows(page = 1, genres = '') {
   return {
     type: LOAD_DISCOVERY_SHOWS,
-    page
+    page,
+    genres
   };
 }
 

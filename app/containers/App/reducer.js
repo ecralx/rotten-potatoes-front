@@ -1,4 +1,5 @@
 import {
+  RESET_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
@@ -50,6 +51,12 @@ export const initialState = {
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_DISCOVERY_SHOWS: {
+      const newState = { ...state };
+      newState.shows.discovery = false;
+
+      return newState;
+    }
     case LOAD_DISCOVERY_SHOWS: {
       const newState = { ...state };
       newState.shows.discovery = newState.shows.discovery

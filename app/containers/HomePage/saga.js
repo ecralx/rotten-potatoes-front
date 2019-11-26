@@ -22,8 +22,9 @@ import request from 'utils/request';
  */
 export function* getDiscoveryShows(action) {
   const requestedPage = action.page || 1;
+  const requestedGenres = action.genres || '';
   // todo : env variables 
-  const requestURL = `http://127.0.0.1:5000/show/discover?page=${requestedPage}`;
+  const requestURL = `http://127.0.0.1:5000/show/discover?page=${requestedPage}&genres=${requestedGenres}`;
   
   try {
     // Call our request helper (see 'utils/request')
