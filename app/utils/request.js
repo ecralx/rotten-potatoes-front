@@ -37,8 +37,19 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
-  return fetch(url, options)
+export default function request(url, options = {headers: {}}) {
+  const authToken = localStorage.getItem('authToken');
+  const optionsWithToken = !authToken
+    ? options
+    : {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${authToken}`
+      }
+    };
+
+  return fetch(url, optionsWithToken)
     .then(parseJSON)
     .then(checkStatus);
 }
