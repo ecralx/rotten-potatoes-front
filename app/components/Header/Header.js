@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -82,7 +82,13 @@ const SearchAppBar = ({ resetShows }) => {
   const history = useHistory();
   const classes = useStyles();
   
-  const [query, setQuery] = React.useState('');
+  const [query, setQuery] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('authToken'));
+  });
+
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
@@ -92,6 +98,7 @@ const SearchAppBar = ({ resetShows }) => {
   }
 
   const goToLogin = () => {
+    setIsLoggedIn(false);
     history.push('/login');
   }
 
@@ -130,7 +137,9 @@ const SearchAppBar = ({ resetShows }) => {
               onKeyDown={goToSearch}
             />
           </div>
-          <Button color="inherit" onClick={goToLogin}>Login</Button>
+          <Button color="inherit" onClick={goToLogin}>
+            {isLoggedIn ? 'Logout' : 'Login'}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
