@@ -2,6 +2,9 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  LOAD_SEARCH_SHOWS,
+  LOAD_SEARCH_SHOWS_SUCCESS,
+  LOAD_SEARCH_SHOWS_ERROR,
   LOAD_SHOW_DETAILS,
   LOAD_SHOW_DETAILS_SUCCESS,
   LOAD_SHOW_DETAILS_ERROR,
@@ -57,6 +60,43 @@ function appReducer(state = initialState, action) {
       const newState = { ...state };
       newState.shows.discovery = {
         ...state.shows.discovery,
+        loading: false,
+        error: action.error
+      };
+      return newState;
+    }
+    case LOAD_SEARCH_SHOWS: {
+      const newState = { ...state };
+      newState.shows.search = newState.shows.search
+        ? {
+          ...newState.shows.search,
+          loading: true,
+          page: action.page
+        }
+        : {
+          loading: true,
+          results: [],
+          totalResults: false,
+          page: action.page,
+          error: false
+        };
+
+      return newState;
+    }
+    case LOAD_SEARCH_SHOWS_SUCCESS: {
+      const newState = { ...state };
+      newState.shows.search = {
+        ...state.shows.search,
+        loading: false,
+        results: [...state.shows.search.results, ...action.shows.results],
+        totalResults: action.shows.total_results
+      };
+      return newState;
+    }
+    case LOAD_SEARCH_SHOWS_ERROR: {
+      const newState = { ...state };
+      newState.shows.search = {
+        ...state.shows.search,
         loading: false,
         error: action.error
       };

@@ -12,6 +12,9 @@
 export const LOAD_DISCOVERY_SHOWS = 'rotten-potatoes/App/LOAD_DISCOVERY_SHOWS';
 export const LOAD_DISCOVERY_SHOWS_SUCCESS = 'rotten-potatoes/App/LOAD_DISCOVERY_SHOWS_SUCCESS';
 export const LOAD_DISCOVERY_SHOWS_ERROR = 'rotten-potatoes/App/LOAD_DISCOVERY_SHOWS_ERROR';
+export const LOAD_SEARCH_SHOWS = 'rotten-potatoes/App/LOAD_SEARCH_SHOWS';
+export const LOAD_SEARCH_SHOWS_SUCCESS = 'rotten-potatoes/App/LOAD_SEARCH_SHOWS_SUCCESS';
+export const LOAD_SEARCH_SHOWS_ERROR = 'rotten-potatoes/App/LOAD_SEARCH_SHOWS_ERROR';
 export const LOAD_SHOW_DETAILS = 'rotten-potatoes/App/LOAD_SHOW_DETAILS';
 export const LOAD_SHOW_DETAILS_SUCCESS = 'rotten-potatoes/App/LOAD_SHOW_DETAILS_SUCCESS';
 export const LOAD_SHOW_DETAILS_ERROR = 'rotten-potatoes/App/LOAD_SHOW_DETAILS_ERROR';

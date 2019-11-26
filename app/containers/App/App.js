@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
+import SearchPage from 'containers/SearchPage/Loadable';
 import ShowPage from 'containers/ShowPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -35,6 +36,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/features" component={FeaturePage} />
+          <Route exact path="/search/:query" component={SearchPage} />
           <Route exact path="/show/:id" component={ShowPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>

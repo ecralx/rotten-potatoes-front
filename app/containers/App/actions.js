@@ -19,6 +19,9 @@ import {
   LOAD_DISCOVERY_SHOWS,
   LOAD_DISCOVERY_SHOWS_SUCCESS,
   LOAD_DISCOVERY_SHOWS_ERROR,
+  LOAD_SEARCH_SHOWS,
+  LOAD_SEARCH_SHOWS_SUCCESS,
+  LOAD_SEARCH_SHOWS_ERROR,
   LOAD_SHOW_DETAILS,
   LOAD_SHOW_DETAILS_SUCCESS,
   LOAD_SHOW_DETAILS_ERROR,
@@ -66,6 +69,28 @@ export function discoveryShowsLoaded(shows) {
 export function discoveryShowsLoadingError(error) {
   return {
     type: LOAD_DISCOVERY_SHOWS_ERROR,
+    error,
+  };
+}
+
+export function loadSearchShows(query, page = 1) {
+  return {
+    type: LOAD_SEARCH_SHOWS,
+    query,
+    page
+  };
+}
+
+export function searchShowsLoaded(shows) {
+  return {
+    type: LOAD_SEARCH_SHOWS_SUCCESS,
+    shows,
+  };
+}
+
+export function searchShowsLoadingError(error) {
+  return {
+    type: LOAD_SEARCH_SHOWS_ERROR,
     error,
   };
 }
